@@ -17,9 +17,9 @@ class App extends Component {
   }
   handleNewTodoKeyPress(e) {
     if (e.keyCode === 13) {
+      this.state.toDoList.push(this.state.newToDoInput);
       this.setState({
         newToDoInput: '',
-        toDoList: this.state.toDoList.push(this.state.newToDoInput)
       });
     }
   }
@@ -39,14 +39,34 @@ class App extends Component {
           handleInputChange={this.handleInputChange}
           handleNewTodoKeyPress={this.handleNewTodoKeyPress}
         />
-        {/* Button for adding the new task  */}
+        {/* List of Todos */}
+        <ToDoListView
+          toDoList={this.state.toDoList}
+        />
+      </div>
+    );
+  }
+}
+
+class ToDoListView extends Component {
+  render() {
+    return (
+      <div>
+        {console.log(this.props)}
+        {this.props.toDoList.map(val => 
+          <ToDo val={val}/>
+        )}
       </div>
     );
   }
 }
 
 class ToDo extends Component {
-
+  render() {
+    return (
+      <span>{this.props.val}</span>
+    );
+  }
 }
 
 class ToDoInput extends Component {
