@@ -63,8 +63,13 @@ class ToDoListView extends Component {
 
 class ToDo extends Component {
   render() {
+    const toDoStyle = {
+      
+    }
     return (
-      <span>{this.props.val}</span>
+      <div style={toDoStyle}>
+        {this.props.val}
+      </div>
     );
   }
 }
@@ -74,6 +79,7 @@ class ToDoInput extends Component {
     const fullInputStyle = {
       display: "flex",
       flexDirection: "row",
+      justifyContent: "center",
       width: "100%"
     }
     const inputStyle = {
