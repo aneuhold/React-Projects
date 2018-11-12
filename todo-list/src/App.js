@@ -8,6 +8,7 @@ class App extends Component {
       toDoList: []
     }
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleNewTodoKeyPress = this.handleNewTodoKeyPress.bind(this);
   }
   handleInputChange(e) {
     this.setState({
@@ -16,9 +17,10 @@ class App extends Component {
   }
   handleNewTodoKeyPress(e) {
     if (e.keyCode === 13) {
-      // Finish entering logic for adding a todo after pressing "Enter".
-      // Clear out the newTodoInput and add an entry to toDoList as an object.
-      console.log("Pressed the enter key");
+      this.setState({
+        newToDoInput: '',
+        toDoList: this.state.toDoList.push(this.state.newToDoInput)
+      });
     }
   }
   handle
@@ -65,6 +67,7 @@ class ToDoInput extends Component {
           type="text" 
           name="newToDoInput" 
           style={inputStyle}
+          value={this.props.newToDoInput}
           onChange={this.props.handleInputChange}
           onKeyDown={this.props.handleNewTodoKeyPress}
         />
