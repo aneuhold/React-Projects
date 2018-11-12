@@ -14,6 +14,13 @@ class App extends Component {
       newToDoInput: e.target.value
     });
   }
+  handleNewTodoKeyPress(e) {
+    if (e.keyCode === 13) {
+      // Finish entering logic for adding a todo after pressing "Enter".
+      // Clear out the newTodoInput and add an entry to toDoList as an object.
+      console.log("Pressed the enter key");
+    }
+  }
   handle
   render() {
     const appStyle = {
@@ -28,6 +35,7 @@ class App extends Component {
         <ToDoInput 
           newToDoInput={this.state.newToDoInput}
           handleInputChange={this.handleInputChange}
+          handleNewTodoKeyPress={this.handleNewTodoKeyPress}
         />
         {/* Button for adding the new task  */}
       </div>
@@ -58,8 +66,7 @@ class ToDoInput extends Component {
           name="newToDoInput" 
           style={inputStyle}
           onChange={this.props.handleInputChange}
-          // Add in onKeyDown for "Enter" and add that input to the todoList,
-          // also, set the todoInput field to "".
+          onKeyDown={this.props.handleNewTodoKeyPress}
         />
       </div>
     );
