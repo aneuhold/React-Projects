@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import iconDelete from './images/outline-delete-24px.svg';
 
 class App extends Component {
   constructor(props) {
@@ -69,7 +70,7 @@ class ToDo extends Component {
       <div style={toDoStyle}>
         {this.props.val}
         {/* Find out what is going on with the image icon */}
-        <img src="images/outline-delete-24px.svg" alt="delete"/>
+        <img src={iconDelete} alt="delete"/>
       </div>
     );
   }
