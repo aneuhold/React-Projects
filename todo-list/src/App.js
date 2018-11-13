@@ -68,6 +68,7 @@ class ToDo extends Component {
     return (
       <div style={toDoStyle}>
         {this.props.val}
+        {/* Find out what is going on with the image icon */}
         <img src="images/outline-delete-24px.svg" alt="delete"/>
       </div>
     );
