@@ -52,9 +52,8 @@ class ToDoListView extends Component {
   render() {
     return (
       <div>
-        {console.log(this.props)}
-        {this.props.toDoList.map(val => 
-          <ToDo val={val}/>
+        {this.props.toDoList.map((val, index) => 
+          <ToDo key={index} val={val}/>
         )}
       </div>
     );
@@ -69,6 +68,7 @@ class ToDo extends Component {
     return (
       <div style={toDoStyle}>
         {this.props.val}
+        <img src="images/outline-delete-24px.svg" alt="delete"/>
       </div>
     );
   }
