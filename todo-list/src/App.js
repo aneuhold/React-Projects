@@ -6,7 +6,8 @@ class App extends Component {
     super(props);
     this.state = {
       newToDoInput: '',
-      toDoList: []
+      toDoList: [],
+      toDoCount: 0
     }
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleNewTodoKeyPress = this.handleNewTodoKeyPress.bind(this);
@@ -18,11 +19,20 @@ class App extends Component {
   }
   handleNewTodoKeyPress(e) {
     if (e.keyCode === 13) {
-      this.state.toDoList.push(this.state.newToDoInput);
+      // Improving the data structure for the Todos
+      this.state.toDoList.push({
+        title: this.state.newToDoInput,
+        toDoNum: this.state.toDoCount + 1
+      });
       this.setState({
         newToDoInput: '',
+        toDoCount: this.state.toDoCount + 1
       });
     }
+  }
+  handleDeleteButtonClick(toDoNum) {
+    // Building a function that handles delete button click
+    console.log(toDoNum);
   }
   handle
   render() {
@@ -43,6 +53,7 @@ class App extends Component {
         {/* List of Todos */}
         <ToDoListView
           toDoList={this.state.toDoList}
+          handleDeleteButtonClick={this.handleDeleteButtonClick}
         />
       </div>
     );
@@ -56,8 +67,13 @@ class ToDoListView extends Component {
     }
     return (
       <div style={toDoListStyle}>
-        {this.props.toDoList.map((val, index) => 
-          <ToDo key={index} val={val}/>
+        {this.props.toDoList.map((toDo, index) => 
+          <ToDo 
+            key={index} 
+            toDoNum={index}
+            toDo={toDo}
+            handleDeleteButtonClick = {this.props.handleDeleteButtonClick}
+          />
         )}
       </div>
     );
@@ -73,9 +89,13 @@ class ToDo extends Component {
     }
     return (
       <div style={toDoStyle}>
-        {this.props.val}
-        {/* Find out what is going on with the image icon */}
-        <img src={iconDelete} alt="delete"/>
+        {this.props.toDo.title}
+        <img 
+          // Trying to get the delete button event into an onClick event.
+          onClick={this.props.handleDeleteButtonClick(this.props.toDo.toDoNum)} 
+          src={iconDelete} 
+          alt="delete"
+        />
       </div>
     );
   }
