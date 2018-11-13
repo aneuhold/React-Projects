@@ -51,8 +51,11 @@ class App extends Component {
 
 class ToDoListView extends Component {
   render() {
+    const toDoListStyle = {
+      width: "100%"
+    }
     return (
-      <div>
+      <div style={toDoListStyle}>
         {this.props.toDoList.map((val, index) => 
           <ToDo key={index} val={val}/>
         )}
@@ -64,7 +67,9 @@ class ToDoListView extends Component {
 class ToDo extends Component {
   render() {
     const toDoStyle = {
-      
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between"
     }
     return (
       <div style={toDoStyle}>
@@ -90,7 +95,7 @@ class ToDoInput extends Component {
     
     return (
       <div style={fullInputStyle}>
-        <label for="newToDoInput">New ToDo:</label>
+        <label htmlFor="newToDoInput">New ToDo:</label>
         <input 
           type="text" 
           name="newToDoInput" 
