@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+import iconDelete from './images/outline-delete-24px.svg';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       newToDoInput: '',
-      toDoList: []
+      toDoList: [],
+      toDoCount: 0
     }
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleNewTodoKeyPress = this.handleNewTodoKeyPress.bind(this);
@@ -17,11 +19,20 @@ class App extends Component {
   }
   handleNewTodoKeyPress(e) {
     if (e.keyCode === 13) {
-      this.state.toDoList.push(this.state.newToDoInput);
+      // Improving the data structure for the Todos
+      this.state.toDoList.push({
+        title: this.state.newToDoInput,
+        toDoNum: this.state.toDoCount + 1
+      });
       this.setState({
         newToDoInput: '',
+        toDoCount: this.state.toDoCount + 1
       });
     }
+  }
+  handleDeleteButtonClick(toDoNum) {
+    // Building a function that handles delete button click
+    console.log(toDoNum);
   }
   handle
   render() {
@@ -42,6 +53,7 @@ class App extends Component {
         {/* List of Todos */}
         <ToDoListView
           toDoList={this.state.toDoList}
+          handleDeleteButtonClick={this.handleDeleteButtonClick}
         />
       </div>
     );
@@ -50,11 +62,18 @@ class App extends Component {
 
 class ToDoListView extends Component {
   render() {
+    const toDoListStyle = {
+      width: "100%"
+    }
     return (
-      <div>
-        {console.log(this.props)}
-        {this.props.toDoList.map(val => 
-          <ToDo val={val}/>
+      <div style={toDoListStyle}>
+        {this.props.toDoList.map((toDo, index) => 
+          <ToDo 
+            key={index} 
+            toDoNum={index}
+            toDo={toDo}
+            handleDeleteButtonClick = {this.props.handleDeleteButtonClick}
+          />
         )}
       </div>
     );
@@ -64,11 +83,19 @@ class ToDoListView extends Component {
 class ToDo extends Component {
   render() {
     const toDoStyle = {
-      
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between"
     }
     return (
       <div style={toDoStyle}>
-        {this.props.val}
+        {this.props.toDo.title}
+        <img 
+          // Trying to get the delete button event into an onClick event.
+          onClick={this.props.handleDeleteButtonClick(this.props.toDo.toDoNum)} 
+          src={iconDelete} 
+          alt="delete"
+        />
       </div>
     );
   }
@@ -88,7 +115,7 @@ class ToDoInput extends Component {
     
     return (
       <div style={fullInputStyle}>
-        <label for="newToDoInput">New ToDo:</label>
+        <label htmlFor="newToDoInput">New ToDo:</label>
         <input 
           type="text" 
           name="newToDoInput" 
