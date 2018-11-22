@@ -1,3 +1,10 @@
+# Free Code Camp Drum Machine
+This project was built for [free code camp](https://www.freecodecamp.org/) and ported over so that it could be shown on github. Originally it as written in code pen with one document. 
+
+[Demo site is available here](https://aneuhold-drum-machine.netlify.com/).
+
+# Default Create-React-App Info
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
