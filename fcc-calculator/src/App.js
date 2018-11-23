@@ -28,39 +28,96 @@ class Calculator extends React.Component {
     super(props);
 
     this.state = {
-      result: 0,
       input: '0',
-      output: '0',
+      output: '',
+      decimalInInput: false,
     };
 
     this.addValue = this.addValue.bind(this);
     this.buttonAction = this.buttonAction.bind(this);
+    this.useOperator = this.useOperator.bind(this);
+    this.lastOutputCharHasOperator = this.lastOutputCharHasOperator.bind(this);
+    this.useClear = this.useClear.bind(this);
   }
 
-  // eslint-disable-next-line class-methods-use-this
   buttonAction(buttonStr) {
     const numValRegEx = /[.0-9]/;
     if (numValRegEx.test(buttonStr)) {
-      console.log('Returned true on regex');
+      this.addValue(buttonStr);
+    } else if (buttonStr === 'AC') {
+      this.useClear();
+    } else {
+      this.useOperator(buttonStr);
     }
   }
 
+  /**
+   * Adds a value to the input and output.
+   * @param {string} valStr - A string containing one char that is either 0-9 or a period.
+   */
   addValue(valStr) {
-    if (this.state.input === '0' || valStr === '0') {
+    if (this.state.input === '0' && valStr === '0') {
       return;
-    } if (this.state.input === '0') {
+    }
+    if (/^[0]|[+/x-]/.test(this.state.input)) {
       this.setState({
-        input: '',
+        input: valStr,
+      });
+    } else if (valStr === '.') {
+      if (this.state.decimalInInput === false) {
+        this.setState(previousState => ({
+          input: previousState.input + valStr,
+          output: previousState.output + valStr,
+          decimalInInput: true,
+        }));
+      }
+    } else {
+      this.setState(previousState => ({
+        input: previousState.input + valStr,
+        output: previousState.output + valStr,
+      }));
+    }
+  }
+
+  useClear() {
+    if (this.state.input === '0') {
+      this.setState({
+        output: '0',
+      });
+    } else {
+      this.setState({
+        input: '0',
       });
     }
-    this.setState(previousState => ({
-      input: previousState.input.append(valStr),
-    }));
   }
 
-  // useOperator(operatorStr) {
+  useOperator(operatorStr) {
+    if (this.lastOutputCharHasOperator()) {
+      this.setState((previousState) => {
+        const previousOutput = previousState.output.slice();
+        const newOutput = previousOutput.splice(previousOutput.length - 1, 1, operatorStr);
+        return {
+          output: newOutput,
+        };
+      });
+    } else {
+      this.setState(previousState => ({
+        output: previousState.output + previousState.input + operatorStr,
+      }));
+    }
+    this.setState({
+      input: operatorStr,
+    });
+  }
 
-  // }
+  // Returns true if the last value of the output is an operator.
+  lastOutputCharHasOperator() {
+    const { output } = this.state;
+    if (/[/+\-x]/.test(output.charAt(output.length - 1))) {
+      return true;
+    }
+    return false;
+  }
 
   render() {
     return (
@@ -172,7 +229,7 @@ const Buttons = props => (
     />
     <Button
       gridArea="multiply"
-      buttonText="X"
+      buttonText="x"
       buttonAction={props.buttonAction}
     />
     <Button
