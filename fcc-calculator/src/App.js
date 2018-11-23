@@ -1,4 +1,5 @@
 /* eslint-disable react/no-multi-comp */
+/* eslint-disable no-eval */
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -35,9 +36,10 @@ class Calculator extends React.Component {
 
     this.addValue = this.addValue.bind(this);
     this.buttonAction = this.buttonAction.bind(this);
-    this.useOperator = this.useOperator.bind(this);
+    this.addOperator = this.addOperator.bind(this);
     this.lastOutputCharHasOperator = this.lastOutputCharHasOperator.bind(this);
     this.useClear = this.useClear.bind(this);
+    this.useEquals = this.useEquals.bind(this);
   }
 
   buttonAction(buttonStr) {
@@ -46,8 +48,10 @@ class Calculator extends React.Component {
       this.addValue(buttonStr);
     } else if (buttonStr === 'AC') {
       this.useClear();
+    } else if (buttonStr === '=') {
+      this.useEquals();
     } else {
-      this.useOperator(buttonStr);
+      this.addOperator(buttonStr);
     }
   }
 
@@ -56,13 +60,14 @@ class Calculator extends React.Component {
    * @param {string} valStr - A string containing one char that is either 0-9 or a period.
    */
   addValue(valStr) {
-    if (this.state.input === '0' && valStr === '0') {
+    if (valStr === '0' && /^[0]|[+/x-]/.test(this.state.input)) {
       return;
     }
     if (/^[0]|[+/x-]/.test(this.state.input)) {
-      this.setState({
+      this.setState(previousState => ({
         input: valStr,
-      });
+        output: previousState.output + valStr,
+      }));
     } else if (valStr === '.') {
       if (this.state.decimalInInput === false) {
         this.setState(previousState => ({
@@ -82,7 +87,7 @@ class Calculator extends React.Component {
   useClear() {
     if (this.state.input === '0') {
       this.setState({
-        output: '0',
+        output: '',
       });
     } else {
       this.setState({
@@ -91,7 +96,15 @@ class Calculator extends React.Component {
     }
   }
 
-  useOperator(operatorStr) {
+  useEquals() {
+    const result = eval(this.state.output);
+    this.setState(previousState => ({
+      output: `${previousState.output}=${result}`,
+      input: result.toString(),
+    }));
+  }
+
+  addOperator(operatorStr) {
     if (this.lastOutputCharHasOperator()) {
       this.setState((previousState) => {
         const previousOutput = previousState.output.slice();
@@ -102,7 +115,7 @@ class Calculator extends React.Component {
       });
     } else {
       this.setState(previousState => ({
-        output: previousState.output + previousState.input + operatorStr,
+        output: previousState.output + operatorStr,
       }));
     }
     this.setState({
