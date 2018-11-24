@@ -3,8 +3,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-// Lets add some tasty monospaced font for the calculator at some point.
-
 const App = () => (
   <div
     className="App"
@@ -41,12 +39,15 @@ class Calculator extends React.Component {
     this.lastOutputCharHasOperator = this.lastOutputCharHasOperator.bind(this);
     this.useClear = this.useClear.bind(this);
     this.useEquals = this.useEquals.bind(this);
+    this.addDecimal = this.addDecimal.bind(this);
   }
 
   buttonAction(buttonStr) {
-    const numValRegEx = /[.0-9]/;
+    const numValRegEx = /[0-9]/;
     if (numValRegEx.test(buttonStr)) {
       this.addValue(buttonStr);
+    } else if (buttonStr === '.') {
+      this.addDecimal();
     } else if (buttonStr === 'AC') {
       this.useClear();
     } else if (buttonStr === '=') {
@@ -59,7 +60,7 @@ class Calculator extends React.Component {
   /**
    * Adds a value to the input and output. If the result is currently showing, then adding
    * a value will clear the output and input.
-   * @param {string} valStr - A string containing one char that is either 0-9 or a period.
+   * @param {string} valStr - A string containing one char that is from 0-9.
    */
   addValue(valStr) {
     if (this.state.outputIsResult) {
@@ -70,28 +71,40 @@ class Calculator extends React.Component {
         decimalInInput: false,
       });
     }
-    if (valStr === '0' && /^[0]|[+/x-]/.test(this.state.input)) {
+    if (valStr === '0' && /^0$|[+/x-]/.test(this.state.input)) {
       return;
     }
-    if (/^[0]|[+/x-]/.test(this.state.input)) {
+    if (/^0$|[+/x-]/.test(this.state.input)) {
       this.setState(previousState => ({
         input: valStr,
         output: previousState.output + valStr,
       }));
-    } else if (valStr === '.') {
-      if (this.state.decimalInInput === false) {
-        this.setState(previousState => ({
-          input: previousState.input + valStr,
-          output: previousState.output + valStr,
-          decimalInInput: true,
-        }));
-      }
     } else {
       this.setState(previousState => ({
         input: previousState.input + valStr,
         output: previousState.output + valStr,
       }));
     }
+  }
+
+  addDecimal() {
+    if (this.state.decimalInInput === true) {
+      return;
+    }
+    if (this.lastOutputCharHasOperator()) {
+      this.setState(previousState => ({
+        output: `${previousState.output}0.`,
+        input: '0.',
+      }));
+    } else {
+      this.setState(previousState => ({
+        output: `${previousState.output}.`,
+        input: `${previousState.input}.`,
+      }));
+    }
+    this.setState({
+      decimalInInput: true,
+    });
   }
 
   useClear() {
@@ -104,16 +117,35 @@ class Calculator extends React.Component {
   }
 
   useEquals() {
-    const result = eval(this.state.output);
-    this.setState(previousState => ({
-      output: `${previousState.output}=${result}`,
+    if (this.state.outputIsResult) {
+      return;
+    }
+    let newOutput = '';
+    if (this.lastOutputCharHasOperator()) {
+      newOutput = this.state.output.slice(0, this.state.output.length - 1);
+    } else {
+      newOutput = this.state.output.slice();
+    }
+    newOutput = newOutput.replace(/[x]/g, '*');
+    const result = eval(newOutput);
+    newOutput = newOutput.replace(/[*]/g, 'x');
+    newOutput += `=${result}`;
+    this.setState({
+      output: newOutput,
       input: result.toString(),
       outputIsResult: true,
-    }));
+      decimalInInput: false,
+    });
   }
 
   addOperator(operatorStr) {
-    if (this.lastOutputCharHasOperator()) {
+    if (this.state.outputIsResult) {
+      this.setState(previousState => ({
+        output: previousState.input + operatorStr,
+        decimalInInput: false,
+        outputIsResult: false,
+      }));
+    } else if (this.lastOutputCharHasOperator()) {
       this.setState((previousState) => {
         const previousOutput = previousState.output.slice();
         let newOutput = previousOutput
