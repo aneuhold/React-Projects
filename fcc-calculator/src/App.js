@@ -237,6 +237,7 @@ const Output = props => (
     style={{
       fontSize: '0.8em',
       marginBottom: '5px',
+      minHeight: '1.2em',
     }}
   >
     {props.output}
