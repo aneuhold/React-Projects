@@ -32,6 +32,7 @@ class Calculator extends React.Component {
       input: '0',
       output: '',
       decimalInInput: false,
+      outputIsResult: false,
     };
 
     this.addValue = this.addValue.bind(this);
@@ -56,10 +57,19 @@ class Calculator extends React.Component {
   }
 
   /**
-   * Adds a value to the input and output.
+   * Adds a value to the input and output. If the result is currently showing, then adding
+   * a value will clear the output and input.
    * @param {string} valStr - A string containing one char that is either 0-9 or a period.
    */
   addValue(valStr) {
+    if (this.state.outputIsResult) {
+      this.setState({
+        output: '',
+        input: '',
+        outputIsResult: false,
+        decimalInInput: false,
+      });
+    }
     if (valStr === '0' && /^[0]|[+/x-]/.test(this.state.input)) {
       return;
     }
@@ -85,15 +95,12 @@ class Calculator extends React.Component {
   }
 
   useClear() {
-    if (this.state.input === '0') {
-      this.setState({
-        output: '',
-      });
-    } else {
-      this.setState({
-        input: '0',
-      });
-    }
+    this.setState({
+      output: '',
+      input: '0',
+      decimalInInput: false,
+      outputIsResult: false,
+    });
   }
 
   useEquals() {
@@ -101,6 +108,7 @@ class Calculator extends React.Component {
     this.setState(previousState => ({
       output: `${previousState.output}=${result}`,
       input: result.toString(),
+      outputIsResult: true,
     }));
   }
 
@@ -108,7 +116,10 @@ class Calculator extends React.Component {
     if (this.lastOutputCharHasOperator()) {
       this.setState((previousState) => {
         const previousOutput = previousState.output.slice();
-        const newOutput = previousOutput.splice(previousOutput.length - 1, 1, operatorStr);
+        let newOutput = previousOutput
+          .split('');
+        newOutput[newOutput.length - 1] = operatorStr;
+        newOutput = newOutput.join('');
         return {
           output: newOutput,
         };
@@ -116,6 +127,7 @@ class Calculator extends React.Component {
     } else {
       this.setState(previousState => ({
         output: previousState.output + operatorStr,
+        decimalInInput: false,
       }));
     }
     this.setState({
@@ -212,8 +224,8 @@ const Buttons = props => (
       display: 'grid',
       gridTemplateAreas: `
         'clear clear divide multiply'
-        'seven eight nine minus'
-        'four five six plus'
+        'seven eight nine subtract'
+        'four five six add'
         'one two three equals'
         'zero zero decimal equals'
       `,
@@ -231,12 +243,12 @@ const Buttons = props => (
       buttonAction={props.buttonAction}
     />
     <Button
-      gridArea="minus"
+      gridArea="subtract"
       buttonText="-"
       buttonAction={props.buttonAction}
     />
     <Button
-      gridArea="plus"
+      gridArea="add"
       buttonText="+"
       buttonAction={props.buttonAction}
     />
@@ -369,6 +381,7 @@ class Button extends React.Component {
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
         onClick={this.handleClick}
+        id={this.props.gridArea}
       >
         {this.props.buttonText}
       </button>
