@@ -18,27 +18,35 @@ class App extends React.Component {
   }
 
   incrementSessionLength() {
-    this.setState(previousState => ({
-      sessionLength: previousState.sessionLength + 1,
-    }))
+    if (this.state.sessionLength < 60) {
+      this.setState(previousState => ({
+        sessionLength: previousState.sessionLength + 1,
+      }))
+    }
   }
 
   decrementSessionLength() {
-    this.setState(previousState => ({
-      sessionLength: previousState.sessionLength - 1,
-    }))
+    if (this.state.sessionLength > 1) {
+      this.setState(previousState => ({
+        sessionLength: previousState.sessionLength - 1,
+      }))
+    }
   }
 
   incrementBreakLength() {
-    this.setState(previousState => ({
-      breakLength: previousState.breakLength + 1,
-    }))
+    if (this.state.breakLength < 60) {
+      this.setState(previousState => ({
+        breakLength: previousState.breakLength + 1,
+      }))
+    }
   }
 
   decrementBreakLength() {
-    this.setState(previousState => ({
-      breakLength: previousState.breakLength - 1,
-    }))
+    if (this.state.breakLength > 1) {
+      this.setState(previousState => ({
+        breakLength: previousState.breakLength - 1,
+      }))
+    }
   }
 
   render() {
