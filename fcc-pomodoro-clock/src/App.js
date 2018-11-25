@@ -9,12 +9,17 @@ class App extends React.Component {
       sessionLength: 25,
       minutesLeft: "25",
       secondsLeft: "00",
+      timerRunning: false,
     }
 
     this.incrementSessionLength = this.incrementSessionLength.bind(this);
     this.decrementSessionLength = this.decrementSessionLength.bind(this);
     this.incrementBreakLength = this.incrementBreakLength.bind(this);
     this.decrementBreakLength = this.decrementBreakLength.bind(this);
+    this.decrementTimerOneSec = this.decrementTimerOneSec.bind(this);
+    this.toggleTimerRunning = this.toggleTimerRunning.bind(this);
+    this.createInterval = this.createInterval.bind(this);
+    this.resetTimer = this.resetTimer.bind(this);
   }
 
   incrementSessionLength() {
@@ -49,6 +54,64 @@ class App extends React.Component {
     }
   }
 
+  toggleTimerRunning() {
+    console.log("toggleTimerRunning hit")
+    const timerIsRunning = this.state.timerRunning;
+    this.setState({
+      timerRunning: !timerIsRunning
+    });
+    if (!timerIsRunning) {
+      this.createInterval();
+    } else {
+      clearInterval(this.intervalID);
+    }
+  }
+
+  createInterval() {
+    this.intervalID = setInterval(this.decrementTimerOneSec, 1000);
+  }
+
+  decrementTimerOneSec() {
+    let newSeconds = Number(this.state.secondsLeft);
+    let newMinutes = Number(this.state.minutesLeft);
+    if (newSeconds === 0) {
+      newMinutes--;
+      if (newMinutes < 10) {
+        newMinutes = `0${newMinutes}`
+      }
+      newSeconds = 59;
+      this.setState({
+        secondsLeft: newSeconds,
+        minutesLeft: newMinutes
+      });
+    } else if (newSeconds <= 10) {
+      newSeconds--;
+      newSeconds = `0${newSeconds}`;
+      this.setState({
+        secondsLeft: newSeconds
+      });
+    } else {
+      newSeconds--;
+      this.setState({
+        secondsLeft: newSeconds
+      });
+    }
+  }
+
+  resetTimer() {
+    if (this.state.timerRunning) {
+      this.toggleTimerRunning();
+    }
+    let newMinutes = this.state.sessionLength;
+    if (newMinutes < 10) {
+      newMinutes = `0${newMinutes}`;
+    }
+    this.setState({
+      minutesLeft: newMinutes,
+      secondsLeft: "00",
+    })
+  }
+
   render() {
     return (
       <div className="App">
@@ -73,8 +136,12 @@ class App extends React.Component {
         <div id="time-left">
           {this.state.minutesLeft}:{this.state.secondsLeft}
         </div>
-        <button id="start_stop">Start/Stop</button>
-        <button id="reset">Reset</button>
+        <button id="start_stop" onClick={this.toggleTimerRunning}>
+          Start/Stop
+        </button>
+        <button id="reset" onClick={this.resetTimer}>
+          Reset
+        </button>
       </div>
     );
   }
