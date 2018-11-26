@@ -1,5 +1,18 @@
 import React from 'react';
 
+// CSS Christmas Colors
+const lightRed = "rgb(255,120,120)";
+const lightGreen = "rgb(115,214,128)";
+const green = "rgb(55,139,40)";
+// Also use white and red 🎄
+
+// CSS Settings
+const centeredColumn = {
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+}
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -146,24 +159,22 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
+      <div 
+        className="App"
+        style={Object.assign({
+          backgroundColor: green,
+          color: "white",
+        }, centeredColumn)}
+      >
         <h1>Pomodoro Clock</h1>
-        <div id="break-label">Break Length</div>
-        <div id="break-length">{this.state.breakLength}</div>
-        <button id="break-increment" onClick={this.incrementBreakLength}>
-          Break Increment
-        </button>
-        <button id="break-decrement" onClick={this.decrementBreakLength}>
-          Break Decrement
-        </button>
-        <div id="sesson-label">Session Length</div>
-        <div id="session-length">{this.state.sessionLength}</div>
-        <button id="session-increment" onClick={this.incrementSessionLength}>
-          Session Increment
-        </button>
-        <button id="session-decrement" onClick={this.decrementSessionLength}>
-          Session Decrement
-        </button>
+        <TimerSettings
+          breakLength={this.state.breakLength}
+          incrementBreakLength={this.incrementBreakLength}
+          decrementBreakLength={this.decrementBreakLength}
+          sessionLength={this.state.sessionLength}
+          incrementSessionLength={this.incrementSessionLength}
+          decrementSessionLength={this.decrementSessionLength}
+        />
         <div id="timer-label">
         {
           this.state.breakTimerRunning?
@@ -187,6 +198,52 @@ class App extends React.Component {
       </div>
     );
   }
+}
+
+const TimerSettings = function(props) {
+  return (
+    <div 
+      id="timer-settings"
+      style={{
+        display: "flex",
+      }}
+    >
+      <div 
+        id="break-settings"
+        style={centeredColumn}
+      >
+        <div id="break-label">Break Length</div>
+        <div id="break-length">{props.breakLength}</div>
+        <button 
+          id="break-increment" onClick={props.incrementBreakLength}
+          style={{
+            height: "50px",
+            width: "50px",
+            backgroundColor: "red",
+          }}
+        >
+        </button>
+        <button id="break-decrement" onClick={props.decrementBreakLength}>
+          Break Decrement
+        </button>
+      </div>
+
+      <div
+        id="session-settings"
+        style={centeredColumn}
+      >
+        <div id="session-label">Session Length</div>
+        <div id="session-length">{props.sessionLength}</div>
+        <button id="session-increment" onClick={props.incrementSessionLength}>
+          Session Increment
+        </button>
+        <button id="session-decrement" onClick={props.decrementSessionLength}>
+          Session Decrement
+        </button>
+      </div>
+    </div>
+    
+  );
 }
 
 export default App;
