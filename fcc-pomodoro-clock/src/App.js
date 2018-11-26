@@ -23,6 +23,14 @@ class App extends React.Component {
     this.resetTimer = this.resetTimer.bind(this);
   }
 
+  componentDidMount() {
+    this.audioElement = document.getElementById("beep");
+  }
+
+  componentWillUnmount() {
+    delete this.audioElement;
+  }
+
   incrementSessionLength() {
     if (this.state.sessionLength < 60) {
       let newSessionLength = this.state.sessionLength + 1;
@@ -98,6 +106,7 @@ class App extends React.Component {
           breakTimerRunning: false,
         })
       }
+      this.audioElement.play();
     } else if (newSeconds === 0) {
       newMinutes--;
       newSeconds = 59;
@@ -108,7 +117,7 @@ class App extends React.Component {
       newSeconds = `0${newSeconds}`;
     }
     if (newMinutes < 10) {
-      newMinutes = `0${newMinutes}`
+      newMinutes = `0${newMinutes}`;
     }
     this.setState({
       secondsLeft: newSeconds,
@@ -129,6 +138,10 @@ class App extends React.Component {
       secondsLeft: "00",
       breakTimerRunning: false,
     })
+    if (this.audioElement.currentTime > 0) {
+      this.audioElement.pause();
+      this.audioElement.currentTime = 0;
+    }
   }
 
   render() {
@@ -155,7 +168,7 @@ class App extends React.Component {
         {
           this.state.breakTimerRunning?
           "Break Timer":
-          "Sesson Timer"
+          "Session Timer"
         }
         </div>
         <div id="time-left">
@@ -167,6 +180,10 @@ class App extends React.Component {
         <button id="reset" onClick={this.resetTimer}>
           Reset
         </button>
+        <audio 
+          id="beep"
+          src="https://sampleswap.org/samples-ghost/SFX%20and%20UNUSUAL%20SOUNDS/ELECTRO%20and%20SYNTHETIC/192[kb]watch_alarm.aif.mp3"
+        />
       </div>
     );
   }
