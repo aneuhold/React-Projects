@@ -12,6 +12,41 @@ const centeredColumn = {
   flexDirection: "column",
   alignItems: "center",
 }
+const emptyButton = {
+  backgroundColor: "transparent",
+  border: "0px",
+}
+const Arrow = function(props) {
+  return(
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        transform: `rotate(${props.rotationDeg})`
+      }}
+    >
+      <div
+        style={{
+          width: 0,
+          height: 0,
+          borderLeft: props.arrowSize + " solid transparent",
+          borderRight: props.arrowSize + " solid transparent",
+          borderBottom: props.arrowSize + " solid " + props.arrowColor,
+        }}
+      />
+      <div
+        style={{
+          position: "relative",
+          width: props.arrowSize,
+          height: props.arrowSize,
+          top: 0,
+          backgroundColor: props.arrowColor,
+        }}
+      />
+    </div>
+  )
+}
 
 class App extends React.Component {
   constructor(props) {
@@ -164,6 +199,7 @@ class App extends React.Component {
         style={Object.assign({
           backgroundColor: green,
           color: "white",
+          height: "100vh",
         }, centeredColumn)}
       >
         <h1>Pomodoro Clock</h1>
@@ -208,38 +244,39 @@ const TimerSettings = function(props) {
         display: "flex",
       }}
     >
-      <div 
-        id="break-settings"
-        style={centeredColumn}
-      >
+      <div id="break-settings" style={centeredColumn}>
         <div id="break-label">Break Length</div>
         <div id="break-length">{props.breakLength}</div>
-        <button 
-          id="break-increment" onClick={props.incrementBreakLength}
+        <div 
           style={{
-            height: "50px",
-            width: "50px",
-            backgroundColor: "red",
+            display: "flex",
           }}
         >
-        </button>
-        <button id="break-decrement" onClick={props.decrementBreakLength}>
-          Break Decrement
-        </button>
+          <button id="break-increment" onClick={props.incrementBreakLength} style={emptyButton}>
+            <Arrow arrowColor="red" arrowSize="20px" rotationDeg="0deg"/>
+          </button>
+          <button id="break-decrement" onClick={props.decrementBreakLength} style={emptyButton}>
+            <Arrow arrowColor="red" arrowSize="20px" rotationDeg="180deg"/>
+          </button>
+        </div>
+        
       </div>
 
-      <div
-        id="session-settings"
-        style={centeredColumn}
-      >
+      <div id="session-settings" style={centeredColumn}>
         <div id="session-label">Session Length</div>
         <div id="session-length">{props.sessionLength}</div>
-        <button id="session-increment" onClick={props.incrementSessionLength}>
-          Session Increment
-        </button>
-        <button id="session-decrement" onClick={props.decrementSessionLength}>
-          Session Decrement
-        </button>
+        <div
+          style={{
+            display: "flex",
+          }}
+        >
+          <button id="session-increment" onClick={props.incrementSessionLength} style={emptyButton}>
+            <Arrow arrowColor="red" arrowSize="20px" rotationDeg="0deg"/>
+          </button>
+          <button id="session-decrement" onClick={props.decrementSessionLength} style={emptyButton}>
+            <Arrow arrowColor="red" arrowSize="20px" rotationDeg="180deg"/>
+          </button>
+        </div>
       </div>
     </div>
     
