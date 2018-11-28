@@ -26,14 +26,10 @@ const Arrow = function(props) {
         transform: `rotate(${props.rotationDeg})`
       }}
     >
-      <div
-        style={{
-          width: 0,
-          height: 0,
-          borderLeft: props.arrowSize + " solid transparent",
-          borderRight: props.arrowSize + " solid transparent",
-          borderBottom: props.arrowSize + " solid " + props.arrowColor,
-        }}
+      <Triangle
+        yOffset="0"
+        triangleColor={props.arrowColor}
+        triangleSize={props.arrowSize}
       />
       <div
         style={{
@@ -46,6 +42,62 @@ const Arrow = function(props) {
       />
     </div>
   )
+}
+const Triangle = function(props) {
+  // Must take props: yOffset, triangleColor, triangleSize
+  return (
+    <div
+      style={{
+        position: "relative",
+        bottom: props.yOffset,
+        width: 0,
+        height: 0,
+        borderLeft: props.triangleSize + " solid transparent",
+        borderRight: props.triangleSize + " solid transparent",
+        borderBottom: props.triangleSize + " solid " + props.triangleColor,
+      }}
+    />
+  );
+}
+const ChristmasTree = function(props) {
+  // Must take props: treeSize
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        // The marginTop might need to change a bit for different sizes
+        marginTop: `calc(${props.treeSize} * -1.85)`,
+      }}
+    >
+      <Triangle 
+        yOffset={`calc(${props.treeSize} * -1.4)`}
+        triangleColor="green"
+        triangleSize={props.treeSize}
+      />
+      <Triangle 
+        yOffset={`calc(${props.treeSize} * -0.9)`}
+        triangleColor="green"
+        triangleSize={`calc(${props.treeSize} * 1.3)`}
+      />
+      <Triangle 
+        yOffset="0px"
+        triangleColor="green"
+        triangleSize={`calc(${props.treeSize} * 1.6)`}
+      />
+      <div
+        style={{
+          width: `calc(${props.treeSize} * 0.6)`,
+          height: `calc(${props.treeSize} * 0.6)`,
+          backgroundColor: "#9d4e15",
+          position: "relative",
+          top: '0px',
+        }}
+      >
+      </div>
+    </div>
+  );
 }
 
 class App extends React.Component {
@@ -193,16 +245,25 @@ class App extends React.Component {
   }
 
   render() {
+    const clockStyle = {
+      fontSize: "2.2em",
+      fontWeight: "bold",
+      marginBottom: "20px",
+    }
     return (
       <div 
         className="App"
         style={Object.assign({
-          backgroundColor: green,
+          backgroundColor: lightGreen,
           color: "white",
           height: "100vh",
+          textAlign: "center",
         }, centeredColumn)}
       >
         <h1>Pomodoro Clock</h1>
+        <ChristmasTree
+          treeSize="25px"
+        />
         <TimerSettings
           breakLength={this.state.breakLength}
           incrementBreakLength={this.incrementBreakLength}
@@ -211,14 +272,14 @@ class App extends React.Component {
           incrementSessionLength={this.incrementSessionLength}
           decrementSessionLength={this.decrementSessionLength}
         />
-        <div id="timer-label">
+        <h2 id="timer-label">
         {
           this.state.breakTimerRunning?
           "Break Timer":
           "Session Timer"
         }
-        </div>
-        <div id="time-left">
+        </h2>
+        <div style={clockStyle} id="time-left">
           {this.state.minutesLeft}:{this.state.secondsLeft}
         </div>
         <button id="start_stop" onClick={this.toggleTimerRunning}>
@@ -231,12 +292,21 @@ class App extends React.Component {
           id="beep"
           src="https://sampleswap.org/samples-ghost/SFX%20and%20UNUSUAL%20SOUNDS/ELECTRO%20and%20SYNTHETIC/192[kb]watch_alarm.aif.mp3"
         />
+        <p>Coded by <a href="https://github.com/aneuhold">Tony Neuhold</a> roughly around Christmas Time 😁🎄</p>
       </div>
     );
   }
 }
 
 const TimerSettings = function(props) {
+  const timerStyle = Object.assign({
+    margin: "0px 15px"
+  }, centeredColumn);
+  const timerNumberStyle = {
+    fontSize: "1.5em",
+    fontWeight: "bold",
+    marginBottom: "10px",
+  }
   return (
     <div 
       id="timer-settings"
@@ -244,37 +314,35 @@ const TimerSettings = function(props) {
         display: "flex",
       }}
     >
-      <div id="break-settings" style={centeredColumn}>
-        <div id="break-label">Break Length</div>
-        <div id="break-length">{props.breakLength}</div>
-        <div 
-          style={{
-            display: "flex",
-          }}
-        >
-          <button id="break-increment" onClick={props.incrementBreakLength} style={emptyButton}>
-            <Arrow arrowColor="red" arrowSize="20px" rotationDeg="0deg"/>
-          </button>
-          <button id="break-decrement" onClick={props.decrementBreakLength} style={emptyButton}>
-            <Arrow arrowColor="red" arrowSize="20px" rotationDeg="180deg"/>
-          </button>
-        </div>
-        
-      </div>
-
-      <div id="session-settings" style={centeredColumn}>
-        <div id="session-label">Session Length</div>
-        <div id="session-length">{props.sessionLength}</div>
+      <div id="session-settings" style={timerStyle}>
+        <h3 id="session-label">Session Length</h3>
+        <div style={timerNumberStyle} id="session-length">{props.sessionLength}</div>
         <div
           style={{
             display: "flex",
           }}
         >
           <button id="session-increment" onClick={props.incrementSessionLength} style={emptyButton}>
-            <Arrow arrowColor="red" arrowSize="20px" rotationDeg="0deg"/>
+            <Arrow arrowColor={lightRed} arrowSize="20px" rotationDeg="0deg"/>
           </button>
           <button id="session-decrement" onClick={props.decrementSessionLength} style={emptyButton}>
-            <Arrow arrowColor="red" arrowSize="20px" rotationDeg="180deg"/>
+            <Arrow arrowColor={lightRed} arrowSize="20px" rotationDeg="180deg"/>
+          </button>
+        </div>
+      </div>
+      <div id="break-settings" style={timerStyle}>
+        <h3 id="break-label">Break Length</h3>
+        <div style={timerNumberStyle} id="break-length">{props.breakLength}</div>
+        <div 
+          style={{
+            display: "flex",
+          }}
+        >
+          <button id="break-increment" onClick={props.incrementBreakLength} style={emptyButton}>
+            <Arrow arrowColor={green} arrowSize="20px" rotationDeg="0deg"/>
+          </button>
+          <button id="break-decrement" onClick={props.decrementBreakLength} style={emptyButton}>
+            <Arrow arrowColor={green} arrowSize="20px" rotationDeg="180deg"/>
           </button>
         </div>
       </div>
