@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import iconDelete from './images/outline-delete-24px.svg';
+import ToDoListView from './ToDoListView';
 
 class App extends Component {
   constructor(props) {
@@ -58,26 +59,6 @@ class App extends Component {
           toDoList={this.state.toDoList}
           handleDeleteButtonClick={this.handleDeleteButtonClick}
         />
-      </div>
-    );
-  }
-}
-
-class ToDoListView extends Component {
-  render() {
-    const toDoListStyle = {
-      width: '100%',
-    };
-    return (
-      <div style={toDoListStyle}>
-        {this.props.toDoList.map((toDo, index) => (
-          <ToDo
-  key={index}
-  toDoNum={index}
-  toDo={toDo}
-  handleDeleteButtonClick= {this.props.handleDeleteButtonClick}
-/>
-        ))}
       </div>
     );
   }
