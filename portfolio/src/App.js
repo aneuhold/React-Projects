@@ -1,10 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import './App.css';
+import Album from './Album';
 
 const App = () => (
-  <div className="App">
-    <p>Test paragraph</p>
-  </div>
+  <React.Fragment>
+    <CssBaseline />
+    <Album />
+  </React.Fragment>
 );
 
 export default App;
