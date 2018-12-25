@@ -1,19 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import AppBar from '@material-ui/core/AppBar';
-import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Grid from '@material-ui/core/Grid';
-import MenuIcon from '@material-ui/icons/Menu';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import { IconButton } from '@material-ui/core';
+import {
+  IconButton, SvgIcon, CardContent, CardActions,
+  CardMedia, Card, CssBaseline, Grid, Button,
+  Typography,
+} from '@material-ui/core';
+import socialLinks from './socialLinks';
 
 const styles = theme => ({
   appBar: {
@@ -74,16 +68,6 @@ function Album(props) {
   return (
     <React.Fragment>
       <CssBaseline />
-      <AppBar position="static" className={classes.appBar}>
-        <Toolbar>
-          <IconButton className={classes.icon} color="inherit">
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" color="inherit" noWrap>
-            [Portfolio] Tony Neuhold
-          </Typography>
-        </Toolbar>
-      </AppBar>
       <main>
         {/* Hero unit */}
         <div className={classes.heroUnit}>
@@ -107,16 +91,15 @@ function Album(props) {
             </Typography>
             <div className={classes.heroButtons}>
               <Grid container spacing={16} justify="center">
-                <Grid item>
-                  <Button variant="contained" color="primary">
-                    Contact
-                  </Button>
-                </Grid>
-                <Grid item>
-                  <Button variant="outlined" color="primary">
-                    Github
-                  </Button>
-                </Grid>
+                {socialLinks.map(obj => (
+                  <Grid item>
+                    <IconButton className={classes.icon} href={obj.link}>
+                      <SvgIcon color="primary">
+                        {obj.svgIconPath}
+                      </SvgIcon>
+                    </IconButton>
+                  </Grid>
+                ))}
               </Grid>
             </div>
           </div>
