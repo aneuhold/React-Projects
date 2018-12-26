@@ -8,6 +8,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import socialLinks from './socialLinks';
+import projects from './projects';
 
 const styles = theme => ({
   appBar: {
@@ -60,8 +61,6 @@ const styles = theme => ({
   },
 });
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-
 function Album(props) {
   const { classes } = props;
 
@@ -107,7 +106,7 @@ function Album(props) {
         <div className={classNames(classes.layout, classes.cardGrid)} id="projects">
           {/* End hero unit */}
           <Grid container spacing={40}>
-            {cards.map(card => (
+            {projects.map(card => (
               <Grid item key={card} sm={6} md={4} lg={3}>
                 <Card className={classes.card}>
                   <CardMedia
@@ -117,18 +116,18 @@ function Album(props) {
                   />
                   <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      Heading
+                      {card.heading}
                     </Typography>
                     <Typography>
-                      This is a media card. You can use this section to describe the content.
+                      {card.info}
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small" color="primary">
+                    <Button size="small" color="primary" href={card.demoLink} target="_blank">
                       View
                     </Button>
                     <Button size="small" color="primary">
-                      Edit
+                      Source
                     </Button>
                   </CardActions>
                 </Card>
