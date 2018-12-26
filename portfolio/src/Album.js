@@ -7,8 +7,8 @@ import {
   CardMedia, Card, CssBaseline, Grid, Button,
   Typography,
 } from '@material-ui/core';
-import socialLinks from './socialLinks';
 import projects from './projects';
+import socialLinks from './socialLinks';
 
 const styles = theme => ({
   appBar: {
