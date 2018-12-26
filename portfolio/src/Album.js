@@ -84,9 +84,22 @@ function Album(props) {
               Anton (Tony) Neuhold
             </Typography>
             <Typography variant="h6" align="center" color="textSecondary" paragraph>
-              Something short and leading about the collection below—its contents, the creator, etc.
-              Make it short and sweet, but not too short so folks don&apos;t simply skip over it
-              entirely.
+              Hi! I
+              {"'"}
+              m currently an online student at
+              {' '}
+              <a rel="noopener noreferrer" target="_blank" href="https://www.asu.edu/">Arizona State Univeristy</a>
+              {' '}
+              working towards a bachelors in software engineering. I live in
+              {' '}
+              <a rel="noopener noreferrer" target="_blank" href="https://www.google.com/maps/place/Canby,+OR+97013/@45.2711453,-122.7227492,13z/data=!3m1!4b1!4m5!3m4!1s0x5495646375ceb84f:0x110fdcab2e1cddd4!8m2!3d45.262205!4d-122.6921558">Canby, OR</a>
+              {' '}
+              and work at a local elementary school as a building technician.
+              <br />
+              <br />
+              When not working, or learning new things at ASU, I like to exercise and
+              learn about web development! Check out some of my social media links
+              and projects below:
             </Typography>
             <div className={classes.heroButtons}>
               <Grid container spacing={16} justify="center">
@@ -124,7 +137,7 @@ function Album(props) {
                   </CardContent>
                   <CardActions>
                     <Button size="small" color="primary" href={card.demoLink} target="_blank">
-                      View
+                      Demo
                     </Button>
                     <Button size="small" color="primary" href={card.codeLink} target="_blank">
                       Source
@@ -139,7 +152,9 @@ function Album(props) {
       {/* Footer */}
       <footer className={classes.footer}>
         <Typography variant="h6" align="center" gutterBottom>
-          Contact at any of the social media links!
+          See the code for this website
+          {' '}
+          <a href="https://github.com/aneuhold/React-Projects/tree/master/portfolio">here!</a>
         </Typography>
         <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
           ©2018 Anton Neuhold

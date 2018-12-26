@@ -17,6 +17,15 @@ const projects = [
     thumbnailUrl: 'https://i.imgur.com/Jn7zDGy.png',
     thumbnailDescription: 'React Cacluator Thumbnail.',
   },
+  {
+    name: 'React Pomodoro Clock',
+    heading: 'React Pomodoro Clock',
+    info: 'A pomodoro clock built with react',
+    demoLink: 'https://aneuhold-pomodoro-clock.netlify.com/',
+    codeLink: 'https://github.com/aneuhold/React-Projects/tree/master/fcc-pomodoro-clock',
+    thumbnailUrl: 'https://i.imgur.com/UsnewFM.png',
+    thumbnailDescription: 'Pomodoro Clock Thumbnail.',
+  },
 ];
 
 export default projects;
