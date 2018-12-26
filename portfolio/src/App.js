@@ -4,10 +4,10 @@ import './App.css';
 import Album from './Album';
 
 const App = () => (
-  <React.Fragment>
+  <div className="app">
     <CssBaseline />
     <Album />
-  </React.Fragment>
+  </div>
 );
 
 export default App;

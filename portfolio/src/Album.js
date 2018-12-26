@@ -11,12 +11,6 @@ import projects from './projects';
 import socialLinks from './socialLinks';
 
 const styles = theme => ({
-  appBar: {
-    position: 'relative',
-  },
-  icon: {
-    marginLeft: theme.spacing.unit * -1,
-  },
   titleName: {
     marginTop: theme.spacing.unit * 3,
   },
@@ -83,7 +77,7 @@ function Album(props) {
             <Typography component="h1" variant="h2" align="center" color="textPrimary" className={classes.titleName} gutterBottom>
               Anton (Tony) Neuhold
             </Typography>
-            <Typography variant="h6" align="center" color="textSecondary" paragraph>
+            <Typography variant="h6" align="center" color="textSecondary">
               Hi! I
               {"'"}
               m currently an online student at
