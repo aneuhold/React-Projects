@@ -98,7 +98,7 @@ function Album(props) {
               <br />
               <br />
               When not working, or learning new things at ASU, I like to exercise and
-              learn about web development! Check out some of my social media links
+              learn about web development! Check out some social media links
               and projects below:
             </Typography>
             <div className={classes.heroButtons}>

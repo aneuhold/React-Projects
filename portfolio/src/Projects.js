@@ -26,6 +26,24 @@ const projects = [
     thumbnailUrl: 'https://i.imgur.com/UsnewFM.png',
     thumbnailDescription: 'Pomodoro Clock Thumbnail.',
   },
+  {
+    name: 'MongoDB Exercise Tracker',
+    heading: 'MongoDB Exercise Tracker',
+    info: 'Built with node.js and express',
+    demoLink: 'https://decisive-cowl.glitch.me/',
+    codeLink: 'https://github.com/aneuhold/fcc-exercisetracker',
+    thumbnailUrl: 'https://i.imgur.com/Ql5RFLb.png',
+    thumbnailDescription: 'MongoDB Exercise Tracker Thumbnail.',
+  },
+  {
+    name: 'URL Shortener',
+    heading: 'URL Shortener',
+    info: 'Built with node.js, express, and MongoDB',
+    demoLink: 'https://tangible-risk.glitch.me/',
+    codeLink: 'https://github.com/aneuhold/fcc-urlshortener',
+    thumbnailUrl: 'https://i.imgur.com/i2rhDTm.png',
+    thumbnailDescription: 'URL Shortener Thumbnail.',
+  },
 ];
 
 export default projects;
