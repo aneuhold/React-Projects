@@ -136,9 +136,12 @@ function Album(props) {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small" color="primary" href={card.demoLink} target="_blank">
-                      Demo
-                    </Button>
+                    {card.hasOwnProperty('demoLink')
+                      ? (
+                        <Button size="small" color="primary" href={card.demoLink} target="_blank">
+                          Demo
+                        </Button>
+                      ) : null}
                     <Button size="small" color="primary" href={card.codeLink} target="_blank">
                       Source
                     </Button>

@@ -44,6 +44,14 @@ const projects = [
     thumbnailUrl: 'https://i.imgur.com/i2rhDTm.png',
     thumbnailDescription: 'URL Shortener Thumbnail.',
   },
+  {
+    name: 'BattleShip',
+    heading: 'BattleShip',
+    info: 'Built in Java as a group project for SER215',
+    codeLink: 'https://github.com/aneuhold/ser215-battleship',
+    thumbnailUrl: 'https://i.imgur.com/RKV5vQ4.png',
+    thumbnailDescription: 'Battleship Thumbnail.',
+  },
 ];
 
 export default projects;
