@@ -8,7 +8,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import socialLinks from './socialLinks';
-import projects from './projects';
+import projects from './Projects';
 
 const styles = theme => ({
   appBar: {
