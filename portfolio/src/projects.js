@@ -52,6 +52,15 @@ const projects = [
     thumbnailUrl: 'https://i.imgur.com/RKV5vQ4.png',
     thumbnailDescription: 'Battleship Thumbnail.',
   },
+  {
+    name: 'BlackJack',
+    heading: 'Command Line BlackJack',
+    info: 'Built in Python 3.x',
+    demoLink: 'https://repl.it/@aneuhold/BlackJack',
+    codeLink: 'https://github.com/aneuhold/python-projects/tree/master/Black%20Jack',
+    thumbnailUrl: 'https://i.imgur.com/gE20dr8.png',
+    thumbnailDescription: 'Python Command Line BlackJack Thumbnail.',
+  },
 ];
 
 export default projects;
