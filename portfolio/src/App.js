@@ -10,13 +10,18 @@ const theme = createMuiTheme({
     primary: orange,
     secondary: orange,
   },
+  typography: {
+    useNextVariants: true,
+  },
 });
 
 const App = () => (
-  <MuiThemeProvider theme={theme} className="app">
-    <CssBaseline />
-    <Album />
-  </MuiThemeProvider>
+  <div className="app">
+    <MuiThemeProvider theme={theme}>
+      <CssBaseline />
+      <Album />
+    </MuiThemeProvider>
+  </div>
 );
 
 export default App;

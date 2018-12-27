@@ -2,7 +2,8 @@
     "extends": "airbnb",
     "rules": {
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-        "no-prototype-builtins": 0
+        "no-prototype-builtins": 0,
+        "react/forbid-prop-types": [false]
     },
     "env": {
         "browser": true

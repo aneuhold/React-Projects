@@ -98,7 +98,7 @@ function Album(props) {
             <div className={classes.heroButtons}>
               <Grid container spacing={16} justify="center">
                 {socialLinks.map(obj => (
-                  <Grid item>
+                  <Grid item key={obj.name}>
                     <IconButton className={classes.icon} href={obj.link}>
                       <SvgIcon color="primary">
                         {obj.svgIconPath}
@@ -163,7 +163,7 @@ function Album(props) {
 }
 
 Album.propTypes = {
-  classes: PropTypes.shape.isRequired,
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(Album);
