@@ -1,0 +1,9 @@
+.ToDoInput {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+.ToDoInput__InputBox {
+    width: 500px;
+}

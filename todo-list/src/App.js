@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import iconDelete from './images/outline-delete-24px.svg';
-import ToDoListView from './ToDoListView';
+import ToDoInput from './components/ToDoInput';
+import ToDoListView from './components/ToDoListView';
+import './App.css';
 
 class App extends Component {
   constructor(props) {
@@ -27,27 +28,21 @@ class App extends Component {
         title: this.state.newToDoInput,
         toDoNum: this.state.toDoCount + 1,
       });
-      this.setState({
+      this.setState(prevState => ({
         newToDoInput: '',
-        toDoCount: this.state.toDoCount + 1,
-      });
+        toDoCount: prevState.toDoCount + 1,
+      }));
     }
   }
 
-  handleDeleteButtonClick(toDoNum) {
+  /*   handleDeleteButtonClick(toDoNum) {
     // Building a function that handles delete button click
     console.log(toDoNum);
-  }
+  } */
 
   render() {
-    const appStyle = {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      padding: '20px',
-    };
     return (
-      <div className="App" style={appStyle}>
+      <div className="App">
         {/* Input field for the new task  */}
         <ToDoInput
           newToDoInput={this.state.newToDoInput}
@@ -58,55 +53,6 @@ class App extends Component {
         <ToDoListView
           toDoList={this.state.toDoList}
           handleDeleteButtonClick={this.handleDeleteButtonClick}
-        />
-      </div>
-    );
-  }
-}
-
-class ToDo extends Component {
-  render() {
-    const toDoStyle = {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-    };
-    return (
-      <div style={toDoStyle}>
-        {this.props.toDo.title}
-        <img
-          // Trying to get the delete button event into an onClick event.
-          onClick={this.props.handleDeleteButtonClick(this.props.toDo.toDoNum)}
-          src={iconDelete}
-          alt="delete"
-        />
-      </div>
-    );
-  }
-}
-
-class ToDoInput extends Component {
-  render() {
-    const fullInputStyle = {
-      display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'center',
-      width: '100%',
-    };
-    const inputStyle = {
-      width: '500px',
-    };
-
-    return (
-      <div style={fullInputStyle}>
-        <label htmlFor="newToDoInput">New ToDo:</label>
-        <input
-          type="text"
-          name="newToDoInput"
-          style={inputStyle}
-          value={this.props.newToDoInput}
-          onChange={this.props.handleInputChange}
-          onKeyDown={this.props.handleNewTodoKeyPress}
         />
       </div>
     );
