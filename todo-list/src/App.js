@@ -13,6 +13,7 @@ class App extends Component {
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleNewTodoKeyPress = this.handleNewTodoKeyPress.bind(this);
+    this.deleteToDo = this.deleteToDo.bind(this);
   }
 
   handleInputChange(e) {
@@ -23,10 +24,9 @@ class App extends Component {
 
   handleNewTodoKeyPress(e) {
     if (e.keyCode === 13) {
-      // Improving the data structure for the Todos
       this.state.toDoList.push({
         title: this.state.newToDoInput,
-        toDoNum: this.state.toDoCount + 1,
+        toDoNum: this.state.toDoCount,
       });
       this.setState(prevState => ({
         newToDoInput: '',
@@ -35,10 +35,12 @@ class App extends Component {
     }
   }
 
-  /*   handleDeleteButtonClick(toDoNum) {
-    // Building a function that handles delete button click
-    console.log(toDoNum);
-  } */
+  deleteToDo(toDoNum) {
+    this.state.toDoList.splice(toDoNum, 1);
+    this.setState(prevState => ({
+      toDoList: prevState.toDoList.splice(toDoNum, 1),
+    }));
+  }
 
   render() {
     return (
@@ -52,7 +54,7 @@ class App extends Component {
         {/* List of Todos */}
         <ToDoListView
           toDoList={this.state.toDoList}
-          handleDeleteButtonClick={this.handleDeleteButtonClick}
+          deleteToDo={this.deleteToDo}
         />
       </div>
     );

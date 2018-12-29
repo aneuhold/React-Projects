@@ -5,6 +5,7 @@ import '../components-css/ToDoInput.css';
 const ToDoInput = props => (
   <div className="ToDoInput">
     <label htmlFor="newToDoInput">
+      New ToDo:
       <input
         type="text"
         id="newToDoInput"
@@ -14,7 +15,6 @@ const ToDoInput = props => (
         onChange={props.handleInputChange}
         onKeyDown={props.handleNewTodoKeyPress}
       />
-      New ToDo:
     </label>
   </div>
 );
