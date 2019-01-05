@@ -154,7 +154,7 @@ function Album(props) {
           <a href="https://github.com/aneuhold/React-Projects/tree/master/portfolio">here!</a>
         </Typography>
         <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
-          ©2018 Anton Neuhold
+          ©2019 Anton Neuhold
         </Typography>
       </footer>
       {/* End footer */}
