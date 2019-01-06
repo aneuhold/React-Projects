@@ -1,5 +1,6 @@
 exports.handler = (event, context, callback) => {
   callback(null, {
-    message: 'It seems that this was successfully called!',
+    statusCode: 200,
+    body: 'It seems that this was successfully called!',
   });
 };
