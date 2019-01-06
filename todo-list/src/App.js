@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ToDoInput from './components/ToDoInput';
 import ToDoListView from './components/ToDoListView';
 import './App.css';
+import { Button } from '@material-ui/core';
 
 class App extends Component {
   constructor(props) {
@@ -56,6 +57,7 @@ class App extends Component {
           toDoList={this.state.toDoList}
           deleteToDo={this.deleteToDo}
         />
+        <Button href="/.netlify/functions/getDBConnection">Call the lambda function!</Button>
       </div>
     );
   }
