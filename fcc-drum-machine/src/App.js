@@ -3,15 +3,15 @@ import React, { Component } from 'react';
 import './App.css';
 
 // Audio Sources
-const claves = "http://sampleswap.org/samples-ghost/DRUMS%20(FULL%20KITS)/standard%20808%20drumkit/2[kb]claves.aif.mp3"
-const crashcym = "http://sampleswap.org/samples-ghost/DRUMS%20(FULL%20KITS)/standard%20808%20drumkit/192[kb]crashcym.aif.mp3"
-const clapSnare = "http://sampleswap.org/samples-ghost/DRUMS%20and%20SINGLE%20HITS/snares/26[kb]clapsnare.aif.mp3"
-const eightOhEight1 = "http://sampleswap.org/samples-ghost/DRUMS%20and%20SINGLE%20HITS/kicks/152[kb]808distbd.aif.mp3"
-const kick1 = "http://sampleswap.org/samples-ghost/DRUMS%20(FULL%20KITS)/standard%20808%20drumkit/60[kb]kick1.aif.mp3"
-const tom1 = "http://sampleswap.org/samples-ghost/DRUMS%20(FULL%20KITS)/standard%20808%20drumkit/31[kb]tom1.aif.mp3"
-const kick2 = "http://sampleswap.org/samples-ghost/DRUMS%20(FULL%20KITS)/standard%20808%20drumkit/74[kb]kick2.aif.mp3"
-const snare1 = "http://sampleswap.org/samples-ghost/DRUMS%20(FULL%20KITS)/808%20Kicks%20n%20Snares/32[kb]808sd15.aif.mp3"
-const saw = "http://sampleswap.org/samples-ghost/DRUMS%20(FULL%20KITS)/Strange%20Kit/29[kb]strangeKit03-QuickSaw..wav.mp3"
+const claves = "https://sampleswap.org/samples-ghost/DRUMS%20(FULL%20KITS)/DRUM%20MACHINES/808%20Basic/2[kb]claves.aif.mp3"
+const crashcym = "https://sampleswap.org/samples-ghost/DRUMS%20(FULL%20KITS)/DRUM%20MACHINES/808%20Basic/192[kb]crashcym.aif.mp3"
+const clapSnare = "https://sampleswap.org/samples-ghost/DRUMS%20(SINGLE%20HITS)/Snares/26[kb]clapsnare.aif.mp3"
+const eightOhEight1 = "https://sampleswap.org/samples-ghost/DRUMS%20(SINGLE%20HITS)/Kicks/152[kb]808distbd.aif.mp3"
+const kick1 = "https://sampleswap.org/samples-ghost/DRUMS%20(FULL%20KITS)/DRUM%20MACHINES/606%20Basic/56[kb]606-kick1.wav.mp3"
+const tom1 = "https://sampleswap.org/samples-ghost/DRUMS%20(FULL%20KITS)/DRUM%20MACHINES/606%20Basic/79[kb]606-tom1.wav.mp3"
+const kick2 = "https://sampleswap.org/samples-ghost/DRUMS%20(FULL%20KITS)/DRUM%20MACHINES/606%20Basic/75[kb]606-kick2.wav.mp3"
+const snare1 = "https://sampleswap.org/samples-ghost/DRUMS%20(FULL%20KITS)/DRUM%20MACHINES/808%20Extended/36[kb]808-sd15.wav.mp3"
+const saw = "https://sampleswap.org/samples-ghost/DRUMS%20(FULL%20KITS)/UNUSUAL%20KITS%20and%20FX/Cyborg%20Kit/29[kb]cyborg-03-QuickSaw.wav.mp3"
 
 // CSS Objects
 const flexCenter = {
@@ -203,7 +203,7 @@ class DrumPad extends Component {
   }
   
   handleKeyDown(event) {
-    if (event.key.toUpperCase() == this.props.audioElId) {
+    if (event.key.toUpperCase() === this.props.audioElId) {
       let audioElement = document.getElementById(this.props.audioElId);
       this.setState({
         drumPadStyle: drumPadOn
@@ -213,7 +213,7 @@ class DrumPad extends Component {
   }
   
   handleKeyUp(event) {
-    if (event.key.toUpperCase() == this.props.audioElId) {
+    if (event.key.toUpperCase() === this.props.audioElId) {
       this.setState({
         drumPadStyle: drumPadOff
       })
